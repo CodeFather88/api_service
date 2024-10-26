@@ -7,6 +7,7 @@ async function bootstrap() {
     transport: Transport.RMQ,
     options: {
       urls: ['amqp://192.168.31.79:5672'],
+      
       // queue: 'cats_queue',
       // queueOptions: {
       //   durable: false
