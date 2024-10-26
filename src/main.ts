@@ -1,20 +1,19 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { Transport, MicroserviceOptions } from '@nestjs/microservices';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
-    transport: Transport.RMQ,
-    options: {
-      urls: ['amqp://192.168.31.79:5672'],
-      
-      // queue: 'cats_queue',
-      // queueOptions: {
-      //   durable: false
-      // },
-    },
-  });
-  
-  await app.listen();
+  const app = await NestFactory.create(AppModule);
+  const options = new DocumentBuilder()
+    .setTitle('API_SERVICE')
+    .setDescription('API для получения информации о поездах, вагонах и местах')
+    .setVersion('1.0')
+    .addTag('info')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, options);
+
+  SwaggerModule.setup('docs', app, document);
+  await app.listen(3000);
 }
 bootstrap();

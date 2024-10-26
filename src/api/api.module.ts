@@ -4,14 +4,18 @@ import { Config } from 'config';
 import { InfoService } from './info/info.service';
 import { OrderService } from './order/order.service';
 import { RedisService } from 'src/redis/redis.service';
+import { InfoController } from './info/info.controller';
 
 @Module({
   providers: [
-    RequestService, 
+    RequestService,
     Config,
     InfoService,
     OrderService,
     RedisService
+  ],
+  controllers: [
+    InfoController
   ]
 })
 export class ApiModule { }
