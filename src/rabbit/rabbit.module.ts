@@ -1,16 +1,15 @@
 import { Module } from '@nestjs/common';
-import { RabbitService } from './rabbit.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
     ClientsModule.register([
       {
-        name: 'MATH_SERVICE',
+        name: 'api_service',
         transport: Transport.RMQ,
         options: {
           urls: ['amqp://localhost:5672'],
-          queue: 'cats_queue',
+          queue: 'order_queue',
           queueOptions: {
             durable: false
           },
@@ -18,6 +17,5 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       },
     ]),
   ],
-  providers: [RabbitService]
 })
 export class RabbitModule { }
