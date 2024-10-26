@@ -9,7 +9,9 @@ import { GetOneSeatDto } from "./dto/get-one-seat.dto";
 
 @Injectable()
 export class InfoService {
-    constructor(private readonly requestService: RequestService) { }
+    constructor(private readonly requestService: RequestService) {
+        this.getTrains({booking_available: true, start_point: 'Ростов-на-Дону', end_point: 'Москва'}).then(e=>console.log(e))
+     }
 
     public getTrains = async (data: GetTrainsDto) => {
         const trains = await this.requestService.get({
